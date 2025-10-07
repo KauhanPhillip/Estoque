@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <title>Relatório de Categorias</title>
+</head>
+<body>
+<div layout:fragment="conteudo" class="report-container">
+
+    <h1>Relatório de Categorias</h1>
+
+    <h2>Categorias com Produtos</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="categoria : ${categoriasComProdutos}">
+                <td th:text="${categoria.idCategoria}"></td>
+                <td th:text="${categoria.nomeCategoria}"></td>
+                <td th:text="${categoria.descricao}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Categorias sem Produtos</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="categoria : ${categoriasSemProdutos}">
+                <td th:text="${categoria.idCategoria}"></td>
+                <td th:text="${categoria.nomeCategoria}"></td>
+                <td th:text="${categoria.descricao}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Contagem de Produtos por Categoria</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Total de Produtos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${contadorProdutos}">
+                <td th:text="${item[0]}"></td>
+                <td th:text="${item[1]}"></td>
+            </tr>
+        </tbody>
+    </table>
+        <div class="links">
+            <a th:href="@{/categorias/listagem}">Voltar para Listagem</a>
+            <a th:href="@{/}">Menu Principal</a>
+        </div>
+</div>
+</body>
+</html>
+

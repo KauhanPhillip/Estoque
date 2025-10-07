@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Lote</title>
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <h1>Editar Lote</h1>
+
+    <!-- Corrigido: envia PUT para /lotes/formulario -->
+    <form th:action="@{/lotes/formulario}" method="post">
+        <input type="hidden" name="_method" value="put"/>  <!-- indica PUT -->
+        <input type="hidden" name="id" th:value="${lote.id}"/>
+
+        <p><strong>ID:</strong> <span th:text="${lote.id}"></span></p>
+
+        <div>
+            <label for="codigoLote">Código do lote:</label>
+            <input type="text" id="codigoLote" name="codigoLote"
+                   th:value="${lote.codigoLote}" required>
+        </div>
+
+        <div>
+            <label for="dataFabricacao">Data de fabricação:</label>
+            <input type="date" id="dataFabricacao" name="dataFabricacao"
+                   th:value="${lote.dataFabricacao != null ? #temporals.format(lote.dataFabricacao,'yyyy-MM-dd') : ''}">
+        </div>
+
+        <div>
+            <label for="dataValidade">Data de validade:</label>
+            <input type="date" id="dataValidade" name="dataValidade" required
+                   th:value="${lote.dataValidade != null ? #temporals.format(lote.dataValidade,'yyyy-MM-dd') : ''}">
+        </div>
+
+        <div>
+            <label for="ativo">Ativo:</label>
+            <!-- ✅ apenas o checkbox, sem hidden -->
+            <input type="checkbox" id="ativo" name="ativo" value="true"
+                   th:checked="${lote.ativo}">
+        </div>
+
+        <div>
+            <input type="submit" value="Salvar">
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <title th:text="${modo == 'edicao'} ? 'Editar Produto' : 'Novo Produto'">Novo Produto</title>
+</head>
+<body>
+<div layout:fragment="conteudo" class="form-card">
+    <h1 th:text="${modo == 'edicao'} ? 'Editar Produto' : 'Cadastrar Produto'">Cadastrar Produto</h1>
+
+    <form th:action="@{/produtos/formulario}" th:object="${produto}" method="post">
+        <!-- PUT apenas na edição -->
+        <input type="hidden" name="_method" value="put" th:if="${modo == 'edicao'}"/>
+
+        <!-- ID (obrigatório na edição) -->
+        <input type="hidden" name="id" th:if="${modo == 'edicao'}" th:value="${produto.id}"/>
+
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" th:field="*{nome}" required>
+        </div>
+
+        <div>
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" th:field="*{descricao}"></textarea>
+        </div>
+
+        <div>
+            <label for="preco">Preço:</label>
+            <input type="number" id="preco" step="0.01" th:field="*{preco}" required>
+        </div>
+
+        <div>
+            <label for="quantidadeEstoque">Quantidade em estoque:</label>
+            <input type="number" id="quantidadeEstoque" th:field="*{quantidadeEstoque}" required>
+        </div>
+
+        <!-- Categoria como campo simples (categoriaId) -->
+        <div>
+            <label for="categoria">Categoria:</label>
+            <select id="categoria" name="categoriaId">
+                <option value="" th:selected="${categoriaIdSelecionado == null}">Selecione...</option>
+                <option th:each="c : ${listaCategorias}"
+                        th:value="${c.idCategoria}"
+                        th:text="${c.nomeCategoria}"
+                        th:selected="${categoriaIdSelecionado != null} ? (${c.idCategoria} == ${categoriaIdSelecionado}) : false">
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label for="lote">Lote:</label>
+            <select id="lote" name="loteId">
+                <option value="">Sem lote</option>
+                <option
+                        th:each="l : ${lotes}"
+                        th:value="${l.id}"
+                th:text="${#temporals.format(l.dataValidade, 'dd/MM/yyyy')}"
+                th:selected="${loteIdSelecionado != null} ? (${l.id} == ${loteIdSelecionado}) : false">
+                </option>
+            </select>
+        </div>
+
+
+        <div>
+            <input type="submit" value="Salvar">
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProdutoNet</title>
+
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+<nav>
+    <div>
+        <a th:href="@{/}" class="nav-home-button" title="Menu Principal">
+            <i class="fa-solid fa-house"></i>
+        </a>
+    </div>
+
+
+            <button class="dropdown-trigger">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="dropdown-menu">
+                <a th:href="@{/categorias/listagem}">Categorias</a>
+                <a th:href="@{/produtos/listagem}">Produtos</a>
+                <a th:href="@{/lotes/listagem}">Lotes</a>
+                <a th:href="@{/}">Sair</a>
+            </div>
+
+
+</nav>
+
+<main>
+    <div layout:fragment="conteudo"></div>
+</main>
+
+<!-- carrega o JS no final -->
+<script th:src="@{/main.js}"></script>
+</body>
+</html>

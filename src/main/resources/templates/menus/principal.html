@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu Principal - ProdutoNet</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <h1>Sistema de Gerenciamento de Produtos</h1>
+
+    <div class="menu-container">
+        <div class="card">
+            <h2>Categoria</h2>
+            <a href="/categorias/formulario">Cadastrar Categoria</a>
+            <a href="/categorias/listagem">Listar Categorias</a>
+            <a href="/categorias/relatorio">Relatório de Categorias</a>
+        </div>
+
+        <div class="card">
+            <h2>Produto</h2>
+            <a href="/produtos/formulario">Cadastrar Produto</a>
+            <a href="/produtos/listagem">Listar Produtos</a>
+            <a href="/produtos/estoque-baixo">Produtos com Estoque Baixo</a>
+        </div>
+
+        <div class="card">
+            <h2>Lote</h2>
+            <a href="/lotes/formulario">Cadastrar Lote</a>
+            <a href="/lotes/listagem">Listar Lotes</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

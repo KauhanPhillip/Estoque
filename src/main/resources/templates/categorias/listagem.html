@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Listagem de Categorias</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <div class="table-container">
+        <h1>Lista de Categorias</h1>
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="categoria : ${lista}">
+                <td th:text="${categoria.idCategoria}"></td>
+                <td th:text="${categoria.nomeCategoria}"></td>
+                <td th:text="${categoria.descricao}"></td>
+                <td>
+                    <a th:href="@{/categorias/formulario(id=${categoria.idCategoria})}">
+                        Editar
+                    </a>
+                    <form th:action="@{/categorias}" method="post" style="display:inline;">
+                        <input type="hidden" name="_method" value="delete">
+                        <input type="hidden" name="id" th:value="${categoria.idCategoria}">
+                        <button type="submit"
+                                onclick="return confirm('Tem certeza que deseja excluir esta categoria?')">
+                            Excluir
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="links">
+            <a th:href="@{/categorias/formulario}">Nova Categoria</a>
+            <a th:href="@{/}">Menu Principal</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

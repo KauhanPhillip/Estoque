@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Listagem de Lotes</title>
+</head>
+<body>
+<div layout:fragment="conteudo" class="table-container">
+    <h1>Lista de Lotes</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Código</th>
+            <th>Data Fabricação</th>
+            <th>Data Validade</th>
+            <th>Ativo</th>
+            <th>Produtos</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lote : ${lista}">
+            <td th:text="${lote.id}"></td>
+            <td th:text="${lote.codigoLote}"></td>
+            <td th:text="${lote.dataFabricacao != null ? #temporals.format(lote.dataFabricacao,'dd/MM/yyyy') : '-'}"></td>
+            <td th:text="${lote.dataValidade != null ? #temporals.format(lote.dataValidade,'dd/MM/yyyy') : '-'}"></td>
+            <td th:text="${lote.ativo ? 'Sim' : 'Não'}"></td>
+            <td th:text="${lote.produtos != null ? lote.produtos.size() : 0}"></td>
+            <td>
+                <a th:href="@{/lotes/formulario(id=${lote.id})}">Editar</a>
+
+                <form th:action="@{/lotes}" method="post" style="display: inline;">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="hidden" name="id" th:value="${lote.id}">
+                    <button type="submit"
+                            onclick="return confirm('Tem certeza que deseja excluir este lote?')">
+                        Excluir
+                    </button>
+                </form>
+            </td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(lista)}">
+            <td colspan="7" style="text-align:center;">Nenhum lote cadastrado</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="links">
+        <a th:href="@{/lotes/formulario}">Novo Lote</a>
+        <a th:href="@{/}">Menu Principal</a>
+    </div>
+
+</div>
+</body>
+</html>

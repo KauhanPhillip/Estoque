@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <title>Produtos com Estoque Baixo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <div class="table-container">
+        <h1>Produtos com Estoque Baixo (menos de 10 unidades)</h1>
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+                <th>Categoria</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="produto : ${lista}">
+                <td th:text="${produto.id}"></td>
+                <td th:text="${produto.nome}"></td>
+                <td th:text="${produto.descricao}"></td>
+                <td th:text="'R$ ' + ${#numbers.formatDecimal(produto.preco, 1, 2)}"></td>
+                <td th:text="${produto.quantidadeEstoque}" class="low-stock"></td>
+                <td th:text="${produto.categoria != null ? produto.categoria.nomeCategoria : 'Sem categoria'}"></td>
+                <td>
+                    <a th:href="@{/produtos/formulario(id=${produto.id})}">Editar</a>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(lista)}">
+                <td colspan="7" style="text-align:center;">Nenhum produto com estoque baixo</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="links">
+            <a th:href="@{/produtos/listagem}">Todos os Produtos</a>
+            <a th:href="@{/}">Menu Principal</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

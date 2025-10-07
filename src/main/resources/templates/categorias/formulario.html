@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de Categoria</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+
+    </style>
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <div class="form-card">
+        <h1 th:text="${modo == 'edicao'} ? 'Editar Categoria' : 'Cadastrar Categoria'">Cadastro de Categoria</h1>
+
+        <form th:action="@{/categorias/formulario}" th:object="${categoria}" method="post">
+            <input type="hidden" name="_method" value="put" th:if="${modo == 'edicao'}"/>
+            <input type="hidden" th:if="${modo == 'edicao'}" th:field="*{idCategoria}"/>
+
+            <label for="nomeCategoria">Nome da Categoria:</label>
+            <input type="text" id="nomeCategoria" th:field="*{nomeCategoria}" required>
+
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" rows="4" th:field="*{descricao}" required></textarea>
+
+            <input type="submit" th:value="${modo == 'edicao'} ? 'Atualizar' : 'Cadastrar'">
+        </form>
+
+        <div class="links">
+            <a th:href="@{/categorias/listagem}">Voltar para Listagem</a>
+            <a th:href="@{/}">Menu Principal</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

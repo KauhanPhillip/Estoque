@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <title>Novo Lote</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <div class="form-card">
+        <h1>Novo Lote</h1>
+
+        <form th:action="@{/lotes/formulario}" method="post">
+            <div>
+                <label for="codigoLote">Código do Lote:</label>
+                <input type="text" id="codigoLote" name="codigoLote" required>
+            </div>
+
+            <div>
+                <label for="dataFabricacao">Data de Fabricação:</label>
+                <input type="date" id="dataFabricacao" name="dataFabricacao" required>
+            </div>
+
+            <div>
+                <label for="dataValidade">Data de Validade:</label>
+                <input type="date" id="dataValidade" name="dataValidade" required>
+            </div>
+
+            <div>
+                <label for="ativo">Ativo:</label>
+                <input type="checkbox" id="ativo" name="ativo" checked>
+            </div>
+
+            <div>
+                <input type="submit" value="Salvar">
+            </div>
+        </form>
+
+        <div class="links">
+            <a th:href="@{/lotes/listagem}">Listar Lotes</a>
+            <a th:href="@{/}">Menu Principal</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
